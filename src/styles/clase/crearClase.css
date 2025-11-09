@@ -1,0 +1,89 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #ffffff;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+.text {
+    font-family: 'CenturyGothic', Arial, sans-serif;
+    font-size: 20px;
+    position: relative;
+    bottom: 230px;
+}
+
+.nombreClaseText {
+    right: 50px;
+}
+
+.aulaText {
+    right: 120px;
+}
+
+.inputNombreClase {
+    background-color: #34B0A6;
+    width: 300px;
+    height: 60px;
+    border-radius: 10px;
+    bottom: 230px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'CenturyGothic', Arial, sans-serif;
+    font-weight: bold;
+    border: none;
+    font-size: 16px;
+}
+
+.inputNombreClase::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.inputNombreAula {
+    background-color: #34B0A6;
+    width: 300px;
+    height: 60px;
+    border-radius: 10px;
+    bottom: 230px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-align: center;
+    font-family: 'CenturyGothic', Arial, sans-serif;
+    font-weight: bold;
+    border: none;
+    font-size: 16px;
+}
+
+.inputNombreAula::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.btCrear {
+    background-color: #34B0A6;
+    width: 200px;
+    height: 60px;
+    border-radius: 10px;
+    bottom: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btCrear:hover {
+    background-color: #2a8d85;
+}
+
+.buttonText {
+    font-family: 'CenturyGothic', Arial, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffffff;
+}

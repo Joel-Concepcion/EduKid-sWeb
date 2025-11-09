@@ -1,0 +1,192 @@
+.Container12 {
+    background-color: #ffffff;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Kavoon', cursive;
+    width: 100vw;
+    /* 100% del viewport width */
+    min-height: 100vh;
+    /* 100% del viewport height */
+    margin: 0;
+    padding: 0;
+}
+
+.contenLogin {
+    position: relative;
+    width: 50%;
+    max-width: 400px;
+    margin: 5% auto;
+    padding: 2rem;
+    background-color: #99E7D9;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: 400px;
+    padding-bottom: 100px;
+}
+
+.texto {
+    font-size: 2.5rem;
+}
+
+
+.select {
+    background-color: #34B0A6;
+    width: 40%;
+    height: 2.5rem;
+    border-color: #34B0A6;
+    border-radius: 50px;
+
+    font-size: 1.0rem;
+    font-family: 'Kavoon', cursive;
+    padding: 0.7rem;
+}
+
+.tex5 {
+    color: #34B0A6;
+    margin-right: 45%;
+    width: 100%;
+}
+
+.texImpul {
+    background-color: #34B0A6;
+    border-color: #34B0A6;
+    width: 150%;
+    height: 2.5rem;
+    border-radius: 20px;
+
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    font-size: large;
+}
+
+.texto {
+    margin-left: 10%;
+    margin-bottom: 1%;
+
+}
+
+.booton {
+    background-color: #34B0A6;
+    color: #ffffff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 80%;
+    margin-top: 10%;
+}
+
+.booton:hover {
+    background-color: #2a8e87;
+}
+
+.alumno {
+    position: absolute;
+    left: 17.3rem;
+    bottom: 00.0rem;
+}
+
+.hier,
+.hier1 {
+    position: absolute;
+    bottom: 0;
+    width: 50px;
+    height: auto;
+}
+
+.hier {
+    left: 90%;
+}
+
+.hier1 {
+    left: 0;
+}
+
+.imagen2 {
+    margin-top: 50%;
+}
+
+.docente {
+    position: relative;
+    left: 10.5rem;
+    bottom: 4.5rem;
+    width: 150px;
+    height: 200px;
+}
+
+.logEstu {
+    width: 50%;
+    max-width: 400px;
+    margin: 5% auto;
+    padding: 2rem;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bootonLog {
+    margin-left: 1%;
+}
+
+.tex3 {
+    position: absolute;
+    top: 85%;
+    width: 40%;
+}
+
+.login {
+    position: relative;
+    width: 300%;
+    max-width: 400px;
+    margin: 5% auto;
+    padding: 2rem;
+    background-color: #99E7D9;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    min-height: 300px;
+    padding-bottom: 100px;
+}
+
+.texImpul1 {
+    background-color: #34B0A6;
+    border-color: #34B0A6;
+    width: 100%;
+    height: 2.5rem;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    font-size: large;
+
+}
+
+.tex51 {
+    color: #34B0A6;
+    margin-right: -3%;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .contenLogin {
+        width: 90%;
+        padding: 1rem;
+    }
+
+    .texto {
+        font-size: 1.5rem;
+    }
+
+    .select {
+        width: 100%;
+        font-size: 1rem;
+    }
+}
