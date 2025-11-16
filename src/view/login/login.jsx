@@ -1,12 +1,12 @@
 import Ari from '../../assets/fondo/ari.png';
 import Aba from '../../assets/fondo/aba.png';
-import '../../styles/login/login.css';
 import Niño from '../../assets/log/nino.png';
 import Docen from '../../assets/log/docente.png';
 import Hierba from '../../assets/log/hierba.png';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // Agregar useNavigate
+import { Link, useNavigate } from 'react-router-dom';
 import '@fontsource/kavoon';
+import styles from'../../styles/login/login.module.css';
 
 //firebase
 import AppFirebase from '../../model/db';
@@ -28,7 +28,7 @@ const db = getFirestore(AppFirebase);
 const auth = getAuth(AppFirebase);
 
 function Login() {
-    const navigate = useNavigate(); // Agregar navigate
+    const navigate = useNavigate();
     const [rol, setRol] = useState("");
     const [mostrarRegistro, setMostrarRegistro] = useState(true);
     const [mostrarLogin, setMostrarLogin] = useState(false);
@@ -73,7 +73,40 @@ function Login() {
         }
     };
 
-    //registro del docente - CORREGIDO
+    // Función para obtener el rol del usuario desde Firestore
+    const obtenerRolUsuario = async (userId) => {
+        try {
+            // Primero busca en la colección 'docente'
+            const docenteRef = doc(db, "docente", userId);
+            const docenteSnap = await getDoc(docenteRef);
+            
+            if (docenteSnap.exists()) {
+                const data = docenteSnap.data();
+                console.log("Rol encontrado en docente:", data.rolId);
+                return data.rolId; // Retorna '1' o '2'
+            }
+
+            // Si no está en 'docente', busca en 'users' o 'usuarios'
+            const userRef = doc(db, "users", userId);
+            const userSnap = await getDoc(userRef);
+            
+            if (userSnap.exists()) {
+                const data = userSnap.data();
+                console.log("Rol encontrado en users:", data.rolId || data.role);
+                return data.rolId || data.role;
+            }
+
+            // Si no encuentra rol, retorna null
+            console.log("No se encontró rol para el usuario:", userId);
+            return null;
+            
+        } catch (error) {
+            console.error("Error obteniendo rol:", error);
+            return null;
+        }
+    };
+
+    //registro del docente
     const registroDocente = async () => {
         if (registrando) return;
         setRegistrando(true);
@@ -99,7 +132,7 @@ function Login() {
         try {
             console.log("Iniciando registro...");
             
-            //Registrar en Firebase Auth
+            // Registrar en Firebase Auth
             const userCredential = await createUserWithEmailAndPassword(auth, correoElectronico, contraseña);
             const usuario = userCredential.user;
             
@@ -108,15 +141,15 @@ function Login() {
             const id = await obtenerNuevoIdDocente();
             console.log("ID obtenido:", id);
 
-            // Guardar datos adicionales en Firestore
+            // Guardar datos adicionales en Firestore - rolId por defecto es '2' (docente normal)
             await setDoc(doc(db, "docente", usuario.uid), {
                 docenteId: 'DOC-' + id,
-                rolId: '2',
+                rolId: '2', // Por defecto, nuevo docente tiene rolId '2'
                 nombreColegio,
                 nombres,
                 apellidos,
                 correoElectronico,
-                contraseña, // NO guardes la contraseña en Firestore - ya está en Auth
+                // NO guardes la contraseña en Firestore - ya está en Auth
                 creadoEn: serverTimestamp()
             });
 
@@ -131,7 +164,8 @@ function Login() {
             setContraseña('');
             setConfirmarContraseña('');
             
-            navigate("/Home"); // Usar navigate en lugar de navigation.navigate
+            // Redirigir a home (rolId '2' por defecto)
+            navigate("/Home");
         } catch (error) {
             console.error("Error completo al registrar:", error);
             let mensajeError = "No se pudo registrar. Intentalo de nuevo.";
@@ -159,8 +193,26 @@ function Login() {
             const usuario = userCredential.user;
 
             console.log("Login exitoso:", usuario.uid);
-            alert("Bienvenido: Inicio de sesión exitoso.");
-            navigate("/Home");
+            
+            // Obtener el rol del usuario desde Firestore
+            const rolId = await obtenerRolUsuario(usuario.uid);
+            console.log("Rol obtenido:", rolId);
+
+            // Redirigir según el rol
+            if (rolId === '1') {
+                console.log("Redirigiendo a /admin - Rol: Administrador");
+                alert("Bienvenido Administrador");
+                navigate("/Admin");
+            } else if (rolId === '2') {
+                console.log("Redirigiendo a /Home - Rol: Docente");
+                alert("Bienvenido Docente");
+                navigate("/Home");
+            } else {
+                console.log("Rol no definido, redirigiendo a /Home por defecto");
+                alert("Bienvenido");
+                navigate("/Home");
+            }
+
         } catch (error) {
             console.error("Error en login:", error);
             let mensajeError = "Credenciales incorrectas o usuario no registrado.";
@@ -205,101 +257,101 @@ function Login() {
 
     return (
         <>
-            <div className="Container12">
-                <img src={Ari} alt="Fondo superior" className="imagen1" />
+            <div className={styles.Container12}>
+                <img src={Ari} alt="Fondo superior" className={styles.imagen1} />
                 {mostrarRegistro && !mostrarLogin && (
-                    <div className='contenLogin' style={{ height: rol === 'Docente' ? '900px' : rol === 'Alumno' ? '495px' : '400px' }}>
-                        <text className='texto'> Registro </text>
+                    <div className={styles.contenLogin} style={{ height: rol === 'Docente' ? '900px' : rol === 'Alumno' ? '495px' : '400px' }}>
+                        <text className={styles.texto}> Registro </text>
                         <select
-                            className="select"
+                            className={styles.select}
                             value={rol}
                             onChange={(e) => setRol(e.target.value)}
                         >
-                            <option value="" className='optionV'>Escoje tu rol</option>
-                            <option value="Docente" className='optionV'>Docente</option>
-                            <option value="Alumno" className='optionV'>Alumno</option>
+                            <option value="" className={styles.optionV}>Escoje tu rol</option>
+                            <option value="Docente" className={styles.optionV}>Docente</option>
+                            <option value="Alumno" className={styles.optionV}>Alumno</option>
                         </select>
 
                         {rol === 'Alumno' && (
-                            <div className="logEstu">
-                                <label className="tex5">Nombre del colegio</label>
+                            <div className={styles.logEstu}>
+                                <label className={styles.tex5}>Nombre del colegio</label>
                                 <input
                                     type="text"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={loginNombreColegio}
-                                    onChange={(e) => setLoginNombreColegio(e.target.value)} // Corregido
+                                    onChange={(e) => setLoginNombreColegio(e.target.value)}
                                 />
 
-                                <label className="tex5">Código del alumno</label>
+                                <label className={styles.tex5}>Código del alumno</label>
                                 <input
                                     type="text"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={loginCodigoEstu}
-                                    onChange={(e) => setLoginCodigoEstu(e.target.value)} // Corregido
+                                    onChange={(e) => setLoginCodigoEstu(e.target.value)}
                                 />
 
-                                <button className="booton" onClick={validarAlumno}>
-                                    <span className="tex2 fon1">Acceder</span>
+                                <button className={styles.booton} onClick={validarAlumno}>
+                                    <span className={styles.tex2}>Acceder</span>
                                 </button>
                             </div>
                         )}
 
                         {rol === 'Docente' && (
-                            <div className="logEstu">
-                                <label className="tex5">Nombre del colegio</label>
+                            <div className={styles.logEstu}>
+                                <label className={styles.tex5}>Nombre del colegio</label>
                                 <input
                                     type="text"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={nombreColegio}
                                     onChange={(e) => setNombreColegio(e.target.value)}
                                 />
 
-                                <label className="tex5">Nombres</label>
+                                <label className={styles.tex5}>Nombres</label>
                                 <input
                                     type="text"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={nombres}
                                     onChange={(e) => setNombres(e.target.value)}
                                 />
 
-                                <label className="tex5">Apellido</label>
+                                <label className={styles.tex5}>Apellido</label>
                                 <input
                                     type="text"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={apellidos}
                                     onChange={(e) => setApellidos(e.target.value)}
                                 />
 
-                                <label className="tex5">Correo electrónico</label>
+                                <label className={styles.tex5}>Correo electrónico</label>
                                 <input
                                     type="email"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={correoElectronico}
                                     onChange={(e) => setCorreoElectronico(e.target.value)}
                                 />
 
-                                <label className="tex5">Contraseña</label>
+                                <label className={styles.tex5}>Contraseña</label>
                                 <input
                                     type="password"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={contraseña}
                                     onChange={(e) => setContraseña(e.target.value)}
                                 />
 
-                                <label className="tex5">Confirmar Contraseña</label>
+                                <label className={styles.tex5}>Confirmar Contraseña</label>
                                 <input
                                     type="password"
-                                    className="texImpul"
+                                    className={styles.texImpul}
                                     value={confirmarContraseña}
                                     onChange={(e) => setConfirmarContraseña(e.target.value)}
                                 />
 
                                 <button 
-                                    className="booton" 
+                                    className={styles.booton} 
                                     onClick={registroDocente}
                                     disabled={registrando}
                                 >
-                                    <span className="tex2 fon1">
+                                    <span className={styles.tex2}>
                                         {registrando ? 'Registrando...' : 'Registrar'}
                                     </span>
                                 </button>
@@ -308,78 +360,78 @@ function Login() {
 
                         {/*Imagenes de login*/}
                         {rol === "" && (
-                            <img src={Niño} alt="imagen de alumno" className='alumno' />
+                            <img src={Niño} alt="imagen de alumno" className={styles.alumno} />
                         )}
                         {rol === 'Alumno' && (
-                            <img src={Niño} alt="imagen de alumno" className='alumno' />
+                            <img src={Niño} alt="imagen de alumno" className={styles.alumno} />
                         )}
 
                         {rol === 'Docente' && (
-                            <img src={Docen} alt="imagen de docente" className='docente' />
+                            <img src={Docen} alt="imagen de docente" className={styles.docente} />
                         )}
 
-                        <img src={Hierba} alt="imagend de hierba" className='hier1' />
-                        <img src={Hierba} alt="imagend de hierba" className='hier' />
+                        <img src={Hierba} alt="imagend de hierba" className={styles.hier1} />
+                        <img src={Hierba} alt="imagend de hierba" className={styles.hier} />
 
                         {/*opcion login*/}
-                        <p className="tex3">
+                        <p className={styles.tex3}>
                             Iniciar sesión:
                             <Link
                                 to="#"
-                                className="bootonLog"
+                                className={styles.bootonLog}
                                 onClick={() => {
                                     setMostrarLogin(true);
                                     setMostrarRegistro(false);
                                 }}
                             >
-                                <span className="tex4 fon2">Login</span>
+                                <span className={styles.tex4}>Login</span>
                             </Link>
                         </p>
                     </div>
                 )}
 
                 {mostrarLogin && !mostrarRegistro && (
-                    <div className='login'>
-                        <text className='texto'> Login </text>
+                    <div className={styles.login}>
+                        <text className={styles.texto}> Login </text>
 
-                        <label className="tex51">Correo electronico</label>
+                        <label className={styles.tex51}>Correo electronico</label>
                         <input
                             type="email"
-                            className="texImpul1"
+                            className={styles.texImpul1}
                             value={loginCorreo}
-                            onChange={(e) => setLoginCorreo(e.target.value)} // Corregido
+                            onChange={(e) => setLoginCorreo(e.target.value)}
                         />
 
-                        <label className="tex51">Contraseña</label>
+                        <label className={styles.tex51}>Contraseña</label>
                         <input
                             type="password"
-                            className="texImpul1"
+                            className={styles.texImpul1}
                             value={loginContraseña}
-                            onChange={(e) => setLoginContraseña(e.target.value)} // Corregido
+                            onChange={(e) => setLoginContraseña(e.target.value)}
                         />
 
-                        <button className="booton" onClick={validarLogin}>
-                            <span className="tex2 fon1">Iniciar Sesión</span> {/* Cambiado el texto */}
+                        <button className={styles.booton} onClick={validarLogin}>
+                            <span className={styles.tex2}>Iniciar Sesión</span>
                         </button>
 
                         {/*opcion registro*/}
-                        <p className="tex3">
+                        <p className={styles.tex3}>
                             Registrarse:
                             <Link
                                 to="#"
-                                className="bootonLog"
+                                className={styles.bootonLog}
                                 onClick={() => {
                                     setMostrarLogin(false);
                                     setMostrarRegistro(true);
                                 }}
                             >
-                                <span className="tex4 fon2">Registro</span>
+                                <span className={styles.tex4}>Registro</span>
                             </Link>
                         </p>
                     </div>
                 )}
 
-                <img src={Aba} alt="Fondo inferior" className="imagen2" />
+                <img src={Aba} alt="Fondo inferior" className={styles.imagen2} />
             </div>
         </>
     );

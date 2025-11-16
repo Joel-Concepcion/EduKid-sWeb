@@ -1,6 +1,6 @@
 //import React from 'react';
 //import { useState } from 'react-router-dom';
-import '../styles/inicio.css';
+import styles  from '../styles/inicio.module.css';
 import '@fontsource/kavoon';
 import Ari from '../assets/fondo/ari.png';
 import Aba from '../assets/fondo/aba.png';
@@ -15,22 +15,22 @@ function Inicio() {
 
   return (
     <>
-      <div className="container">
-        <img src={Ari} alt="Fondo superior" className="imagen1" />
+      <div className={styles.container}>
+        <img src={Ari} alt="Fondo superior" className={styles.imagen1} />
 
-        <div className="centered">
-          <div className="lg1C">
-            <img src={Logo} alt="Logo" className="lg1" />
+        <div className={styles.centered}>
+          <div className={styles.lg1C}>
+            <img src={Logo} alt="Logo" className={styles.lg1} />
           </div>
-          <h1 className="tex">EduKid's</h1>
+          <h1 className={styles.tex}>EduKid's</h1>
         </div>
-    
-          <button className="button" onClick={() => navigate('/login')} >
+
+          <button className={styles.button} onClick={() => navigate('/login')} >
             Acceder
           </button>
        
 
-        <img src={Aba} alt="Fondo inferior" className="imagen2" />
+        <img src={Aba} alt="Fondo inferior" className={styles.imagen2} />
       </div>
     </>
   );

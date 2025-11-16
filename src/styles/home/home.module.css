@@ -16,22 +16,22 @@
     align-items: center;
     background-color: #ffffff;
     min-height: 100vh;
-    width: 297%;
+    min-width: 100vw;
     font-family: 'CenturyGothic-Bold', sans-serif;
 }
 
-.header-section {
+.headerSection {
     position: relative;
-    width: 307%;
+    width: 324.0%;
     background-color: #99E7D9;
-    right: 109%;
+    right: 112%;
     height: 8.5rem;
 }
 
-.professor-image {
+.professorImage {
     position: relative;
-    left: 91.9%;
-    margin-top: 2.9%;
+    left: 87.9%;
+    margin-top: 2.6%;
 }
 
 .greeting {
@@ -43,15 +43,15 @@
     width: 32%;
 }
 
-.create-class-btn{
+.createClassBtn {
     position: relative;
-    left: 80%;
+    left: 75%;
     bottom: 12.2rem;
     background-color: #34B0A6;
     border-radius: 50px;
 }
 
-.activities-section{
+.activitiesSection{
     position: relative;
     top: 0.0rem;
     background-color: #F2F2F2;
@@ -62,7 +62,7 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 }
 
-.activity-icon{
+.activityIcon{
     position: relative;
     top: 0.2rem;
     width: 50px;
@@ -71,13 +71,13 @@
     padding-left: 4%;
 }
 
-.activity-text{
+.activityText{
     position: relative;
     color: #000000;
     bottom: 1.0rem;
 }
 
-.ai-button{
+.aiButton{
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -89,7 +89,7 @@
 }
 
 /*//////////////////*/
-.activity-card {
+.activityCard {
     background: #F2F2F2;
     border-radius: 16px;
     padding: 0;
@@ -106,7 +106,7 @@
 }
 
 /* Efecto hover - TODA LA TARJETA DEL MISMO COLOR */
-.activity-card:hover {
+.activityCard:hover {
     background: linear-gradient(135deg, #34B0A6 0%, #34B0A6 100%);
     transform: translateY(-5px);
     box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
@@ -115,37 +115,35 @@
 }
 
 /*Seccion de clase*/
-.section-title{
+.sectionTitle{
     color: #000000;
 }
-.classes-section{
-    position: relative;
-    bottom: 25.2rem;
+.classesSection{
     border-color: #000000;
     border-width: 2;
     border-radius: 12px;
 }
 
-.class-card{
+.classCard{
     border-radius: 100px;
     border-width: 2px;
     border-color: #000000;
     margin-bottom: 1.5rem;
 }
 
-.class-banner-container{
+.classBannerContainer{
     position: relative;
     height: 12.2rem;
 }
 
-.class-name{
+.className{
     position: relative;
     bottom: 12.2rem;
     color: #000000;
     left: 8.2rem;
 }
 
-.class-banner{
+.classBanner {
     border-radius: 30px;
     border-width: 3px;
     border-style:ridge;

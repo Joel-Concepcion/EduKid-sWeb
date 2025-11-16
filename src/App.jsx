@@ -6,6 +6,8 @@ import Home from './view/home';
 import CrearClase from './view/clase/crearclase';
 import IA from './view/IA/ia';
 import Clase  from './view/clase/clase';
+import Admin from './view/admin/admin';
+//import Registro from '../registro';
 
 
 function App() {
@@ -19,6 +21,8 @@ function App() {
       <Route path="/crear-clase" element={<CrearClase />} />
       <Route path="/ia" element={<IA />} />
       <Route path="/clase/:id" element={<Clase />} />
+      <Route path="/admin" element={<Admin />} />
+      
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { getFirestore, collection, getDocs, query, where } from "firebase/firestore";
 import appFirebase from "../model/db";
@@ -23,7 +23,9 @@ import home from '../assets/icon/home.png';
 import regis from '../assets/icon/regis.png';
 import iaIcon from '../../src/assets/IA (2).png';
 
-import '../styles/home/home.css';
+import styles from'../styles/home/home.module.css';
+
+//import Registro from './registro.jsx';
 
 const db = getFirestore(appFirebase);
 const auth = getAuth();
@@ -39,21 +41,21 @@ const bannerMap = {
 function Home() {
     const navigate = useNavigate();
     const [clases, setClases] = useState([]);
-    
+
 
 
     const location = useLocation();
     const [activeCard, setActiveCard] = useState(null);
 
     const activities = [
-         {
+        {
             id: 'math',
-            name: 'Hogas',
+            name: 'Hogar',
             icon: home,
-            path: '/lista-actividades/matematicas'
+            path: ''
         },
-         {
-            id: 'math',
+        {
+            id: 'inicio',
             name: 'Registro',
             icon: regis,
             path: '/lista-actividades/matematicas'
@@ -88,7 +90,7 @@ function Home() {
             icon: quizzIcon,
             path: '/lista-actividades/quizzes'
         },
-         {
+        {
             id: 'math',
             name: 'Ajustes',
             icon: ajus,
@@ -159,87 +161,91 @@ function Home() {
     }, []);
 
     return (
-        <div className="container1">
-            <div className="containerS">
+        <div className={styles.container1}>
+            <div className={styles.containerS}>
                 {/* Header con saludo y botón crear clase */}
-                <div className="header-section">
+                <div className={styles.headerSection}>
                     <img
                         src={professorImg}
                         alt="Profesor"
-                        className="professor-image"
+                        className={styles.professorImage}
                     />
-                    <h1 className="greeting">Hola, Profesor/a</h1>
+                    <h1 className={styles.greeting}>Hola, Profesor/a</h1>
                     <button
                         onClick={() => navigate('/crear-clase')}
-                        className="create-class-btn"
+                        className={styles.createClassBtn}
                     >
                         Crear clase
                     </button>
                 </div>
 
                 {/* Sección de actividades disponibles */}
-                <nav className="activities-section">
-                    
-                    <div className="activities-grid">
+                <nav className={styles.activitiesSection}>
+
+                    <div className={styles.activitiesGrid}>
                         {activities.map((activity) => (
                             <div
                                 key={activity.id}
-                                className={`activity-card ${activity.id}-card ${isActive(activity.path) ? 'active' : ''}`}
+                                className={`${styles.activityCard} ${activity.id}-card ${isActive(activity.path) ? styles.active : ''}`}
                                 onClick={() => handleCardClick(activity)}
                                 onMouseEnter={() => handleMouseEnter(activity.id)}
                                 onMouseLeave={() => handleMouseLeave(activity.id)}
                             >
-                                <div className="card-content">
+                                <div className={styles.cardContent}>
                                     <img
                                         src={activity.icon}
                                         alt={activity.name}
-                                        className="activity-icon"
+                                        className={styles.activityIcon}
                                     />
-                                    <span className="activity-text">{activity.name}</span>
+                                    <span className={styles.activityText}>{activity.name}</span>
                                 </div>
-                                <div className="active-indicator"></div>
+                                <div className={styles.activeIndicator}></div>
                             </div>
                         ))}
                     </div>
                 </nav>
                 {/* Sección de clases */}
-                <div className="classes-section">
-                    <h2 className="section-title">Clases:</h2>
-                    <div className="classes-scroll">
+                <div className={styles.clasesSection}>
+                    <h2 className={styles.sectionTitle}>Clases:</h2>
+                    <div className={styles.classesScroll}>
                         {clases.length > 0 ? (
                             clases.map((clase) => (
-                                <div key={clase.id} className="class-card">
+                                <div key={clase.id} className={styles.classCard}>
                                     <div
-                                        className="class-banner-container"
+                                        className={styles.classBannerContainer}
                                         onClick={() => navigate(`/clase/${clase.id}`, { state: { clase } })}
                                     >
                                         <img
                                             src={bannerMap[clase.banner]}
                                             alt={`Banner ${clase.nombreClase}`}
-                                            className="class-banner"
+                                            className={styles.classBanner}
                                         />
-                                        <h3 className="class-name">Clase: {clase.nombreClase}</h3>
+                                        <h3 className={styles.className}>Clase: {clase.nombreClase}</h3>
                                     </div>
                                 </div>
                             ))
                         ) : (
-                            <p className="no-classes">No hay clases creadas</p>
+                            <p className={styles.noClasses}>No hay clases creadas</p>
                         )}
                     </div>
                 </div>
 
                 {/* Botón IA */}
                 <button
-                    className="ai-button"
+                    className={styles.aiButton}
                     onClick={() => navigate("/ia")}
                 >
                     <img
                         src={iaIcon}
                         alt="IA"
-                        className="ai-icon"
+                        className={styles.aiIcon}
                     />
                 </button>
             </div>
+
+            
+
+           
         </div>
     );
 }

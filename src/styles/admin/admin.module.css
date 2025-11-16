@@ -1,0 +1,549 @@
+@font-face {
+    font-family: 'CenturyGothic';
+    src: url('../../assets/font/3394-font.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'CenturyGothic-Bold';
+    src: url('../../assets/font/4410-font.ttf') format('truetype');
+}
+
+.adminContainer {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 20px;
+    position: relative;
+}
+
+.container {
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.button {
+    position: relative;
+    background-color: #34B0A6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 20.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    left: 20%;
+    top: 5.3rem;
+}
+
+.text1 {
+    font-family: 'CenturyGothic-Bold', sans-serif;
+    font-size: 16px;
+}
+
+.imageGrupo {
+    width: 50px;
+    height: 50px;
+    margin-top: 5px;
+}
+
+.button1 {
+    position: relative;
+    background-color: #34B0A6;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 20.5rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    left: 50%;
+    bottom: 0.7rem;
+}
+
+.text2 {
+    font-family: 'CenturyGothic-Bold', sans-serif;
+    font-size: 16px;
+}
+
+.imageGrupo1 {
+    width: 50px;
+    height: 50px;
+    margin-top: 5px;
+}
+
+/* Nuevos estilos para modales y listas */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.modal {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    
+}
+
+.modalGrande {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    max-width: 800px;
+    width: 95%;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+}
+.txten {
+    color: #333;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+.modalHeader h2 {
+    margin: 0;
+    color: #333;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+}
+
+.closeButton:hover {
+    color: #333;
+}
+
+.modalButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.modalButton {
+    background: #34B0A6;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.modalButton:hover {
+    background: #2a8e86;
+}
+
+.modalButton:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+}
+
+.modalButtonCancel {
+    background: #cd0000;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.modalButtonCancel:hover {
+    background: #685a5a;
+}
+
+/* Barra de búsqueda */
+.searchContainer {
+    margin-bottom: 20px;
+    
+}
+
+.searchInput {
+    width: 97%;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.searchInput:focus {
+    border-color: #34B0A6;
+}
+
+/* Lista de usuarios */
+.listaContainer {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.usuarioCard {
+    background: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.usuarioInfo h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+
+}
+
+.usuarioInfo p {
+    margin: 2px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+.usuarioActions {
+    display: flex;
+    gap: 10px;
+}
+
+.editButton,
+.deleteButton,
+.saveButton,
+.cancelButton {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.editButton {
+    background: #99E7D9;
+    color: #000000;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.editButton:hover {
+    background: #34B0A6;
+}
+
+.deleteButton {
+    background: #dc3545;
+    color: white;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.deleteButton:hover {
+    background: #c82333;
+}
+
+.saveButton {
+    background: #28a745;
+    color: white;
+}
+
+.saveButton:hover {
+    background: #218838;
+}
+
+.cancelButton {
+    background: #c82333;
+    color: white;
+}
+
+.cancelButton:hover {
+    background: #ee5867;
+}
+
+/* Formulario de edición */
+.editForm {
+    width: 100%;
+}
+
+.editInput {
+    width: 97%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: 'CenturyGothic-Bold', sans-serif;
+}
+
+.editButtons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Estados */
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.noResults {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+    font-style: italic;
+}
+
+/* Modo oscuro */
+.modo-oscuro .modal,
+.modo-oscuro .modalGrande {
+    background: #2d3748;
+    color: white;
+}
+
+.modo-oscuro .usuarioCard {
+    background: #4a5568;
+    border-color: #718096;
+}
+
+.modo-oscuro .searchInput {
+    background: #4a5568;
+    border-color: #718096;
+    color: white;
+}
+
+.modo-oscuro .usuarioInfo h3 {
+    color: white;
+}
+
+.modo-oscuro .usuarioInfo p {
+    color: #cbd5e0;
+}
+
+.txten12{
+    font-family: 'CenturyGothic-Bold', sans-serif;
+    color: #000000;
+}
+
+/* Modal de Confirmación de Eliminación 
+/////////////////////////////////////*/
+/* Modal de Confirmación de Eliminación */
+.modalConfirmacion {
+    background: white;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.modo-oscuro .modalConfirmacion {
+    background: #2d3748;
+    color: white;
+}
+
+.confirmacionHeader {
+    background: #e53e3e;
+    color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+.confirmacionHeader h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.confirmacionBody {
+    padding: 25px 20px;
+}
+
+.confirmacionAdvertencia {
+    color: #e53e3e;
+    font-weight: 500;
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.modo-oscuro .confirmacionAdvertencia {
+    color: #fc8181;
+}
+
+.confirmacionButtons {
+    display: flex;
+    gap: 10px;
+    padding: 0 20px 20px;
+    justify-content: center;
+}
+
+.confirmacionButtonEliminar {
+    background: #e53e3e;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    flex: 1;
+}
+
+.confirmacionButtonEliminar:hover {
+    background: #c53030;
+}
+
+.confirmacionButtonCancelar {
+    background: #718096;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    flex: 1;
+}
+
+.confirmacionButtonCancelar:hover {
+    background: #4a5568;
+}
+
+/* Botón Agregar */
+.agregarButton {
+    background: #38a169;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    margin-right: 10px;
+}
+
+.agregarButton:hover {
+    background: #2f855a;
+}
+
+/* Modal de Mensajes Personalizados */
+.modalMensaje {
+    background: white;
+    padding: 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+    overflow: hidden;
+}
+
+.modo-oscuro .modalMensaje {
+    background: #2d3748;
+    color: white;
+}
+
+.modalMensaje.success .mensajeHeader {
+    background: #38a169;
+}
+
+.modalMensaje.error .mensajeHeader {
+    background: #e53e3e;
+}
+
+.modalMensaje.warning .mensajeHeader {
+    background: #dd6b20;
+}
+
+.modalMensaje.info .mensajeHeader {
+    background: #3182ce;
+}
+
+.mensajeHeader {
+    color: white;
+    padding: 20px;
+    margin: 0;
+}
+
+.mensajeHeader h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.mensajeBody {
+    padding: 25px 20px;
+}
+
+.mensajeButtons {
+    padding: 0 20px 20px;
+}
+
+.mensajeButtonAceptar {
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.mensajeButtonAceptar:hover {
+    background: #2c5aa0;
+}
+
+/* Grupos de formulario */
+.formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+/* Estilos para inputs en modo oscuro */
+.modo-oscuro .editInput {
+    background: #4a5568;
+    color: white;
+    border: 1px solid #718096;
+}
+
+.modo-oscuro .editInput::placeholder {
+    color: #a0aec0;
+}
+
+/* Resto de tus estilos existentes... */

@@ -1,0 +1,23 @@
+/* admin.module.css o theme.css */
+.modo-claro {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+.modo-oscuro {
+    background-color: #1e1e1e;
+    color: #f0f0f0;
+}
+
+.boton-tema {
+    position: relative;
+    margin: 20px;
+    padding: 10px 20px;
+    background-color: #34B0A6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    bottom: -1.0rem;
+}
+
