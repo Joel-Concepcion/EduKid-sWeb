@@ -3,25 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, addDoc, doc, getDoc, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import appFirebase from "../../model/db";
-import '../../styles/clase/crearClase.css';
-
-// Importar imágenes (ajusta las rutas según tu estructura)
-import Banner1 from '../../assets/bannerClase/Rectangle 18.png';
-import Banner2 from '../../assets/bannerClase/Rectangle 19.png';
-import Banner3 from '../../assets/bannerClase/Rectangle 20.png';
-import Banner4 from '../../assets/bannerClase/Rectangle 21.png';
-import Banner5 from '../../assets/bannerClase/Rectangle 22.png';
+import styles from '../../styles/clase/crearClase.module.css';
 
 const db = getFirestore(appFirebase);
 const auth = getAuth();
-
-/*const imagenesClase = [
-    '../../assets/bannerClase/Rectangle18.png',
-    '../../assets/bannerClase/Rectangle19.png',
-    '../../assets/bannerClase/Rectangle20.png',
-    '../../assets/bannerClase/Rectangle21.png',
-    '../../assets/bannerClase/Rectangle22.png',
-];*/
 
 const bannerNombres = [
     'Rectangle18.png',
@@ -30,10 +15,26 @@ const bannerNombres = [
     'Rectangle21.png',
     'Rectangle22.png',
 ];
+
 function CrearClase() {
-     const navigate = useNavigate();
+    const navigate = useNavigate();
     const [nombreClase, setNombreClase] = useState("");
     const [aula, setAula] = useState("");
+    const [creando, setCreando] = useState(false);
+    const [alerta, setAlerta] = useState({ mostrar: false, mensaje: '', tipo: '' });
+
+    // Función para mostrar alertas personalizadas
+    const mostrarAlerta = (mensaje, tipo = 'success') => {
+        setAlerta({ mostrar: true, mensaje, tipo });
+        
+        setTimeout(() => {
+            setAlerta({ mostrar: false, mensaje: '', tipo: '' });
+        }, 4000);
+    };
+
+    const cerrarAlerta = () => {
+        setAlerta({ mostrar: false, mensaje: '', tipo: '' });
+    };
 
     // Generador de código tipo Classroom
     const generarCodigoClase = () => {
@@ -55,14 +56,16 @@ function CrearClase() {
     };
 
     const crearClaseEnFirestore = async () => {
+        if (creando) return;
+        
         if (!nombreClase || !aula) {
-            alert("Por favor completa todos los campos");
+            mostrarAlerta("Por favor completa todos los campos", "error");
             return;
         }
 
         const usuarioActual = auth.currentUser;
         if (!usuarioActual) {
-            alert("No hay usuario autenticado");
+            mostrarAlerta("No hay usuario autenticado", "error");
             navigate("/login");
             return;
         }
@@ -70,6 +73,8 @@ function CrearClase() {
         const bannerSeleccionado = bannerNombres[Math.floor(Math.random() * bannerNombres.length)];
 
         try {
+            setCreando(true);
+
             // Obtener contador
             const contadorRef = doc(db, "metadata", "contadorClases");
             const contadorSnap = await getDoc(contadorRef);
@@ -103,45 +108,67 @@ function CrearClase() {
                 ultimoId: nuevoId
             });
 
-            alert(`Clase creada con éxito. Código de clase: ${codigoClase}`);
-            navigate(-1); // Equivalente a navigation.goBack()
+            mostrarAlerta(`Clase creada con éxito. Código de clase: ${codigoClase}`);
+            
+            // Limpiar formulario
+            setNombreClase("");
+            setAula("");
+            
+            // Redirigir después de un breve delay
+            setTimeout(() => {
+                navigate(-1);
+            }, 2000);
+            
         } catch (error) {
             console.error("Error al crear la clase:", error);
-            alert("Hubo un error al crear la clase");
+            mostrarAlerta("Hubo un error al crear la clase", "error");
+        } finally {
+            setCreando(false);
         }
     };
+
     return (
-       <div className="container">
-            <div className="text nombreClaseText">
-                Nombre de la clase
-            </div>
+        <div className={styles.container}>
+            {/* Alerta personalizada */}
+            {alerta.mostrar && (
+                <div className={`${styles.alerta} ${styles[`alerta-${alerta.tipo}`]}`}>
+                    <span className={styles.alertaMensaje}>{alerta.mensaje}</span>
+                    <button className={styles.alertaCerrar} onClick={cerrarAlerta}>
+                        ×
+                    </button>
+                </div>
+            )}
+
             <input
-                className="inputNombreClase"
+                className={styles.inputNombreClase}
                 type="text"
                 value={nombreClase}
                 onChange={(e) => setNombreClase(e.target.value)}
                 placeholder="Ingresa el nombre de la clase"
             />
-            <div className="text aulaText">
+           
+            <div className={`${styles.text} ${styles.aulaText}`}>
                 Aula
             </div>
             <input
-                className="inputNombreAula"
+                className={styles.inputNombreAula}
                 type="text"
                 value={aula}
                 onChange={(e) => setAula(e.target.value)}
                 placeholder="Ingresa el aula"
             />
-            <button className="btCrear" onClick={crearClaseEnFirestore}>
-                <div className="buttonText">
-                    Crear
+
+            <button 
+                className={styles.btCrear} 
+                onClick={crearClaseEnFirestore}
+                disabled={creando}
+            >
+                <div className={styles.buttonText}>
+                    {creando ? 'Creando...' : 'Crear'}
                 </div>
             </button>
         </div>
-
     );
-
-
 }
 
 export default CrearClase;

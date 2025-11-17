@@ -50,7 +50,22 @@ function Login() {
     const [loginNombreColegio, setLoginNombreColegio] = useState('');
     const [loginCodigoEstu, setLoginCodigoEstu] = useState('');
 
-    //funciones 
+    // Estado para alertas personalizadas
+    const [alerta, setAlerta] = useState({ mostrar: false, mensaje: '', tipo: '' });
+
+    // Función para mostrar alertas personalizadas
+    const mostrarAlerta = (mensaje, tipo = 'success') => {
+        setAlerta({ mostrar: true, mensaje, tipo });
+        
+        setTimeout(() => {
+            setAlerta({ mostrar: false, mensaje: '', tipo: '' });
+        }, 4000);
+    };
+
+    const cerrarAlerta = () => {
+        setAlerta({ mostrar: false, mensaje: '', tipo: '' });
+    };
+
     const obtenerNuevoIdDocente = async () => {
         try {
             const contadorRef = doc(db, "contadores", "docente");
@@ -112,19 +127,19 @@ function Login() {
         setRegistrando(true);
 
         if (!nombreColegio || !nombres || !apellidos || !correoElectronico || !contraseña || !confirmarContraseña) {
-            alert("Campos incompletos: Por favor, completá todos los campos.");
+            mostrarAlerta("Campos incompletos: Por favor, completá todos los campos.", "error");
             setRegistrando(false);
             return;
         }
 
         if (contraseña.length < 6) {
-            alert("Contraseña débil: Debe tener al menos 6 caracteres.");
+            mostrarAlerta("Contraseña débil: Debe tener al menos 6 caracteres.", "error");
             setRegistrando(false);
             return;
         }
 
         if (contraseña !== confirmarContraseña) {
-            alert("Las contraseñas no coinciden");
+            mostrarAlerta("Las contraseñas no coinciden", "error");
             setRegistrando(false);
             return;
         }
@@ -154,7 +169,7 @@ function Login() {
             });
 
             console.log("Datos guardados en Firestore");
-            alert("Registro exitoso: Docente registrado correctamente.");
+            mostrarAlerta("Registro exitoso: Docente registrado correctamente.");
             
             // Limpiar formulario
             setNombreColegio('');
@@ -176,7 +191,7 @@ function Login() {
                 mensajeError = "El correo electrónico no es válido.";
             }
             
-            alert("Error: " + mensajeError);
+            mostrarAlerta("Error: " + mensajeError, "error");
         } finally {
             setRegistrando(false);
         }
@@ -184,7 +199,7 @@ function Login() {
 
     const validarLogin = async () => {
         if (!loginCorreo || !loginContraseña) {
-            alert("Campos vacíos: Ingresá tu correo y contraseña.");
+            mostrarAlerta("Campos vacíos: Ingresá tu correo y contraseña.", "error");
             return;
         }
 
@@ -201,15 +216,15 @@ function Login() {
             // Redirigir según el rol
             if (rolId === '1') {
                 console.log("Redirigiendo a /admin - Rol: Administrador");
-                alert("Bienvenido Administrador");
+                mostrarAlerta("Bienvenido Administrador");
                 navigate("/Admin");
             } else if (rolId === '2') {
                 console.log("Redirigiendo a /Home - Rol: Docente");
-                alert("Bienvenido Docente");
+                mostrarAlerta("Bienvenido Docente");
                 navigate("/Home");
             } else {
                 console.log("Rol no definido, redirigiendo a /Home por defecto");
-                alert("Bienvenido");
+                mostrarAlerta("Bienvenido");
                 navigate("/Home");
             }
 
@@ -223,14 +238,14 @@ function Login() {
                 mensajeError = "Contraseña incorrecta.";
             }
             
-            alert("Error: " + mensajeError);
+            mostrarAlerta("Error: " + mensajeError, "error");
         }
     };
 
     //login alumno
     const validarAlumno = async () => {
         if (!loginNombreColegio || !loginCodigoEstu) {
-            alert("Campos vacíos: Ingresá el nombre del colegio y código del estudiante.");
+            mostrarAlerta("Campos vacíos: Ingresá el nombre del colegio y código del estudiante.", "error");
             return;
         }
 
@@ -244,20 +259,30 @@ function Login() {
             const resultado = await getDocs(consulta);
 
             if (resultado.empty) {
-                alert("Credenciales incorrectas: Verificá el nombre del colegio y su código.");
+                mostrarAlerta("Credenciales incorrectas: Verificá el nombre del colegio y su código.", "error");
             } else {
-                alert("Bienvenido: Inicia a interactuar de manera educativa");
+                mostrarAlerta("Bienvenido: Inicia a interactuar de manera educativa");
                 navigate("/inicioAlumno");
             }
         } catch (error) {
             console.error("Error en login alumno:", error);
-            alert("Error: No se pudo acceder al perfil del estudiante");
+            mostrarAlerta("Error: No se pudo acceder al perfil del estudiante", "error");
         }
     };
 
     return (
         <>
             <div className={styles.Container12}>
+                {/* Alerta personalizada */}
+                {alerta.mostrar && (
+                    <div className={`${styles.alerta} ${styles[`alerta-${alerta.tipo}`]}`}>
+                        <span className={styles.alertaMensaje}>{alerta.mensaje}</span>
+                        <button className={styles.alertaCerrar} onClick={cerrarAlerta}>
+                            ×
+                        </button>
+                    </div>
+                )}
+
                 <img src={Ari} alt="Fondo superior" className={styles.imagen1} />
                 {mostrarRegistro && !mostrarLogin && (
                     <div className={styles.contenLogin} style={{ height: rol === 'Docente' ? '900px' : rol === 'Alumno' ? '495px' : '400px' }}>
@@ -267,7 +292,7 @@ function Login() {
                             value={rol}
                             onChange={(e) => setRol(e.target.value)}
                         >
-                            <option value="" className={styles.optionV}>Escoje tu rol</option>
+                            <option value="" className={styles.optionV}>Rol</option>
                             <option value="Docente" className={styles.optionV}>Docente</option>
                             <option value="Alumno" className={styles.optionV}>Alumno</option>
                         </select>

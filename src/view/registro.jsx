@@ -1,66 +1,57 @@
-//import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect, useNavigate } from 'react';
-//import { useNavigate } from "react-router-dom";
+// components/Registro.js
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
 import appFirebase from '../model/db';
+import styles from '../styles/home/home.module.css';
 
 const db = getFirestore(appFirebase);
 
-function Registro() {
+const Registro = () => {
     const navigate = useNavigate();
     const [clasesRegistradas, setClasesRegistradas] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const obtenerClases = async () => {
-            try {
-                const snapshot = await getDocs(collection(db, 'clases'));
-                const años = snapshot.docs
-                    .map(doc => doc.data())
-                    .filter(clase => clase.año) 
-                    .map(clase => clase.año);
-                setClasesRegistradas(años);
-            } catch (error) {
-                console.error("Error al obtener clases:", error);
-            } finally {
-                setLoading(false);
-            }
+            const snapshot = await getDocs(collection(db, 'clases'));
+            const años = snapshot.docs
+                .map(doc => doc.data())
+                .filter(clase => clase.año) 
+                .map(clase => clase.año);
+            setClasesRegistradas(años);
         };
 
         obtenerClases();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="registro-loading">
-                <div className="loading-spinner">Cargando...</div>
-            </div>
-        );
-    }
-
     return (
-        <div className="registro-container">
-            <div className="registro-cuerpo">
+        <div className={styles.registroContainer}>
+            <div className={styles.registroContent}>
+                
+                {/* Botón Registrar grupo de clase */}
                 <button 
-                    className="registro-button primary"
+                    className={styles.registroButton}
                     onClick={() => navigate("/registro-alumno")}
                 >
-                    <span className="button-text">Registrar grupo de clase</span>
+                    <span className={styles.buttonText}>Registrar grupo de clase</span>
                 </button>
 
-                <div className="registro-scroll-view">
+                {/* Lista de clases */}
+                <div className={styles.scrollContainer}>
                     {clasesRegistradas.map((año, index) => (
                         <button 
                             key={index} 
-                            className="registro-button secondary"
+                            className={styles.claseButton}
                             onClick={() => navigate("/lista-alumnos")}
                         >
-                            <span className="clase-text">Clase: {año}</span>
+                            <span className={styles.claseText}>Clase: {año}</span>
                         </button>
                     ))}
                 </div>
+
             </div>
         </div>
     );
-}
+};
+
 export default Registro;

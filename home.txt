@@ -5,9 +5,9 @@ import { getFirestore, collection, getDocs, query, where } from "firebase/firest
 import appFirebase from "../model/db";
 
 // Importar componentes existentes (ajusta las rutas según tu estructura)
-import RegistroAlumnos from '../view/registro'; // Tu componente de React Native convertido
-import AjustesPerfil from '../view/ajustes'; // Tu componente de ajustes
-import ListaActividades from './game/matematica/ListaActividades'; // Tu componente de matemáticas
+import RegistroAlumnos from '../components/RegistroAlumnos'; // Tu componente de React Native convertido
+import AjustesPerfil from '../components/AjustesPerfil'; // Tu componente de ajustes
+import ActividadMatematica from '../components/ActividadMatematica'; // Tu componente de matemáticas
 
 // Importar las imágenes directamente
 import banner18 from '../assets/bannerClase/Rectangle 18.png';
@@ -28,7 +28,7 @@ import home from '../assets/icon/home.png';
 import regis from '../assets/icon/regis.png';
 import iaIcon from '../../src/assets/IA (2).png';
 
-import styles from '../styles/home/home.module.css';
+import styles from'../styles/home/home.module.css';
 
 const db = getFirestore(appFirebase);
 const auth = getAuth();
@@ -142,15 +142,55 @@ function Home() {
     const renderActividadAcademica = () => {
         switch (subseccionActiva) {
             case 'math':
-                return <ListaActividades />;
+                return <ActividadMatematica />;
             case 'literature':
-                return <ListaActividades />;
+                return (
+                    <div className={styles.actividadContent}>
+                        <h2>Literatura</h2>
+                        <div className={styles.actividadGrid}>
+                            <div className={styles.actividadItem}>Lectura Básica</div>
+                            <div className={styles.actividadItem}>Comprensión Lectora</div>
+                            <div className={styles.actividadItem}>Vocabulario</div>
+                            <div className={styles.actividadItem}>Ortografía</div>
+                        </div>
+                    </div>
+                );
             case 'figures':
-                return <ListaActividades />;
+                return (
+                    <div className={styles.actividadContent}>
+                        <h2>Figuras Geométricas</h2>
+                        <div className={styles.actividadGrid}>
+                            <div className={styles.actividadItem}>Círculos</div>
+                            <div className={styles.actividadItem}>Cuadrados</div>
+                            <div className={styles.actividadItem}>Triángulos</div>
+                            <div className={styles.actividadItem}>Figuras 3D</div>
+                        </div>
+                    </div>
+                );
             case 'sounds':
-                return<ListaActividades />;
+                return (
+                    <div className={styles.actividadContent}>
+                        <h2>Sonidos y Fonética</h2>
+                        <div className={styles.actividadGrid}>
+                            <div className={styles.actividadItem}>Vocales</div>
+                            <div className={styles.actividadItem}>Consonantes</div>
+                            <div className={styles.actividadItem}>Sílabas</div>
+                            <div className={styles.actividadItem}>Palabras Completas</div>
+                        </div>
+                    </div>
+                );
             case 'quizzes':
-                return<ListaActividades />;
+                return (
+                    <div className={styles.actividadContent}>
+                        <h2>Mini-quizzes</h2>
+                        <div className={styles.actividadGrid}>
+                            <div className={styles.actividadItem}>Quiz de Matemáticas</div>
+                            <div className={styles.actividadItem}>Quiz de Español</div>
+                            <div className={styles.actividadItem}>Quiz de Ciencias</div>
+                            <div className={styles.actividadItem}>Quiz General</div>
+                        </div>
+                    </div>
+                );
             case 'clases':
             default:
                 return (
@@ -207,13 +247,13 @@ function Home() {
                         className={styles.professorImage}
                     />
                     <h1 className={styles.greeting}>
-                        {seccionActiva === 'home'
-                            ? (subseccionActiva === 'clases'
-                                ? 'Hola, Profesor/a'
+                        {seccionActiva === 'home' 
+                            ? (subseccionActiva === 'clases' 
+                                ? 'Hola, Profesor/a' 
                                 : activities.find(a => a.id === subseccionActiva)?.name)
                             : seccionActiva === 'registro'
-                                ? 'Registro de Estudiantes'
-                                : 'Ajustes y Configuración'
+                            ? 'Registro de Estudiantes'
+                            : 'Ajustes y Configuración'
                         }
                     </h1>
                     <button
@@ -233,10 +273,11 @@ function Home() {
                             {activities.map((activity) => (
                                 <div
                                     key={activity.id}
-                                    className={`${styles.activityCard} ${(activity.tipo === 'navegacion' && seccionActiva === activity.id) ||
-                                            (activity.tipo === 'actividad' && subseccionActiva === activity.id)
+                                    className={`${styles.activityCard} ${
+                                        (activity.tipo === 'navegacion' && seccionActiva === activity.id) ||
+                                        (activity.tipo === 'actividad' && subseccionActiva === activity.id)
                                             ? styles.navActive : ''
-                                        }`}
+                                    }`}
                                     onClick={() => handleCardClick(activity)}
                                 >
                                     <div className={styles.cardContent}>
