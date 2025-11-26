@@ -15,7 +15,7 @@
     background-color: #FFFFFF;
     border-bottom: 1px solid #e6e6e6;
     height: 40px;
-    width: 95%;
+    width: 100%;
 }
 
 .headerLeft {
@@ -93,7 +93,8 @@
 .guidedWrap {
     position: relative;
     padding: 0.75rem 1rem;
-    bottom: 12%;
+    bottom: 9%;
+    left: 30%;
 }
 
 .guidedBtn {
@@ -105,7 +106,8 @@
     align-items: center;
     gap: 8px;
     cursor: pointer;
-    width: 100%;
+    width: 16%;
+    height: 2.1rem;
     transition: background-color 0.2s;
 }
 
@@ -126,6 +128,7 @@
     border-radius: 12px;
     border: 1px solid #d9f4ef;
     overflow: hidden;
+    width: 25%;
 }
 
 .guidedItem {
@@ -284,7 +287,7 @@
     background-color: #FFFFFF;
     border-top: 1px solid #e6e6e6;
     gap: 12px;
-    width: 90%;
+    width: 100%;
 }
 
 .input {

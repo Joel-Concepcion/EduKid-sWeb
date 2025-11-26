@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import '../../styles/IA/Ia.css';
+import styles from '../../styles/IA/Ia.module.css';
 
 const LOOP_MONTESSORI_RESPONDER = "1f2a7160-c1fc-48a3-90e3-c4eb7b3b1046";
 
@@ -276,93 +276,93 @@ function IA() {
         }
     };
 
-    return (
-        <div className="container">
+       return (
+        <div className={styles.container}>
             {/* Header */}
-            <div className="header">
-                <div className="headerLeft">
-                    <span className="childIcon">👶</span>
-                    <div className="headerTitle">Montessori AI</div>
+            <div className={styles.header}>
+                <div className={styles.headerLeft}>
+                    <span className={styles.childIcon}>👶</span>
+                    <div className={styles.headerTitle}>Montessori AI</div>
                 </div>
 
                 {/* Controles de voz */}
-                <div className="voiceControls">
-                    <button className="voicePill" onClick={cycleVoiceGender}>
-                        <span className="voiceIcon"></span>
-                        <div className="voicePillText">
+                <div className={styles.voiceControls}>
+                    <button className={styles.voicePill} onClick={cycleVoiceGender}>
+                        <span className={styles.voiceIcon}></span>
+                        <div className={styles.voicePillText}>
                             {voiceGender === "female" ? "Femenina" : "Masculina"}
                         </div>
                     </button>
 
-                    <div className="rateBox">
-                        <button onClick={decRate} className="rateBtn">➖</button>
-                        <div className="rateText">{speechRate.toFixed(1)}x</div>
-                        <button onClick={incRate} className="rateBtn">➕</button>
+                    <div className={styles.rateBox}>
+                        <button onClick={decRate} className={styles.rateBtn}>➖</button>
+                        <div className={styles.rateText}>{speechRate.toFixed(1)}x</div>
+                        <button onClick={incRate} className={styles.rateBtn}>➕</button>
                     </div>
 
-                    <button onClick={onNewConversation} className="newConvBtn">
-                        <span className="plusIcon">+</span>
-                        <div className="newConvText">Nueva</div>
+                    <button onClick={onNewConversation} className={styles.newConvBtn}>
+                        <span className={styles.plusIcon}>+</span>
+                        <div className={styles.newConvText}>Nueva</div>
                     </button>
                 </div>
             </div>
 
             {/* Modo Guiado */}
-            <div className="guidedWrap">
-                <button className="guidedBtn" onClick={() => setGuidedOpen((x) => !x)}>
-                    <span className="mapIcon">🗺️</span>
-                    <div className="guidedText">Modo Guiado</div>
-                    <span className="chevronIcon">{guidedOpen ? "▲" : "▼"}</span>
+            <div className={styles.guidedWrap}>
+                <button className={styles.guidedBtn} onClick={() => setGuidedOpen((x) => !x)}>
+                    <span className={styles.mapIcon}>🗺️</span>
+                    <div className={styles.guidedText}>Modo Guiado</div>
+                    <span className={styles.chevronIcon}>{guidedOpen ? "▲" : "▼"}</span>
                 </button>
 
                 {guidedOpen && (
-                    <div className="guidedMenu">
-                        <div className="guidedItem" onClick={() => onGuided("docente")}>
-                            <div className="guidedItemText">Cómo aplicar en el colegio</div>
-                            <span className="arrowIcon">→</span>
+                    <div className={styles.guidedMenu}>
+                        <div className={styles.guidedItem} onClick={() => onGuided("docente")}>
+                            <div className={styles.guidedItemText}>Cómo aplicar en el colegio</div>
+                            <span className={styles.arrowIcon}>→</span>
                         </div>
-                        <div className="guidedItem" onClick={() => onGuided("actividades")}>
-                            <div className="guidedItemText">Diseñar actividades</div>
-                            <span className="arrowIcon">→</span>
+                        <div className={styles.guidedItem} onClick={() => onGuided("actividades")}>
+                            <div className={styles.guidedItemText}>Diseñar actividades</div>
+                            <span className={styles.arrowIcon}>→</span>
                         </div>
-                        <div className="guidedItem" onClick={() => onGuided("citas")}>
-                            <div className="guidedItemText">Citas de María Montessori</div>
-                            <span className="arrowIcon">→</span>
+                        <div className={styles.guidedItem} onClick={() => onGuided("citas")}>
+                            <div className={styles.guidedItemText}>Citas de María Montessori</div>
+                            <span className={styles.arrowIcon}>→</span>
                         </div>
-                        <div className="guidedItem" onClick={() => onGuided("adaptaciones")}>
-                            <div className="guidedItemText">Adaptaciones por etapa</div>
-                            <span className="arrowIcon">→</span>
+                        <div className={styles.guidedItem} onClick={() => onGuided("adaptaciones")}>
+                            <div className={styles.guidedItemText}>Adaptaciones por etapa</div>
+                            <span className={styles.arrowIcon}>→</span>
                         </div>
                     </div>
                 )}
             </div>
 
             {/* Temas */}
-            <div className="topicsRow">
-                <button className="topicBtn" onClick={() => onTopic("Ambiente Preparado")}>
-                    <span className="topicIcon">🏠</span>
-                    <div className="topicText">Ambiente Preparado</div>
+            <div className={styles.topicsRow}>
+                <button className={styles.topicBtn} onClick={() => onTopic("Ambiente Preparado")}>
+                    <span className={styles.topicIcon}>🏠</span>
+                    <div className={styles.topicText}>Ambiente Preparado</div>
                 </button>
-                <button className="topicBtn" onClick={() => onTopic("Materiales Sensoriales")}>
-                    <span className="topicIcon">🧩</span>
-                    <div className="topicText">Materiales Sensoriales</div>
+                <button className={styles.topicBtn} onClick={() => onTopic("Materiales Sensoriales")}>
+                    <span className={styles.topicIcon}>🧩</span>
+                    <div className={styles.topicText}>Materiales Sensoriales</div>
                 </button>
-                <button className="topicBtn" onClick={() => onTopic("Educación Cósmica")}>
-                    <span className="topicIcon">🌍</span>
-                    <div className="topicText">Educación Cósmica</div>
+                <button className={styles.topicBtn} onClick={() => onTopic("Educación Cósmica")}>
+                    <span className={styles.topicIcon}>🌍</span>
+                    <div className={styles.topicText}>Educación Cósmica</div>
                 </button>
-                <button className="topicBtn" onClick={() => onTopic("Autonomía")}>
-                    <span className="topicIcon">🔑</span>
-                    <div className="topicText">Autonomía</div>
+                <button className={styles.topicBtn} onClick={() => onTopic("Autonomía")}>
+                    <span className={styles.topicIcon}>🔑</span>
+                    <div className={styles.topicText}>Autonomía</div>
                 </button>
-                <button className="topicBtn" onClick={() => onTopic("Ciclos de Desarrollo")}>
-                    <span className="topicIcon">📚</span>
-                    <div className="topicText">Ciclos de Desarrollo</div>
+                <button className={styles.topicBtn} onClick={() => onTopic("Ciclos de Desarrollo")}>
+                    <span className={styles.topicIcon}>📚</span>
+                    <div className={styles.topicText}>Ciclos de Desarrollo</div>
                 </button>
             </div>
 
             {/* Chat */}
-            <div ref={scrollRef} className="chat">
+            <div ref={scrollRef} className={styles.chat}>
                 {messages.map((m, i) => (
                     <Bubble key={i} role={m.role} text={m.content} onSpeak={() => speak(m.content)} />
                 ))}
@@ -370,17 +370,17 @@ function IA() {
             </div>
 
             {/* Input */}
-            <div className="inputBar">
+            <div className={styles.inputBar}>
                 <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Escribe tu pregunta sobre Montessori..."
-                    className="input"
+                    className={styles.input}
                     disabled={loading}
                 />
-                <button className="sendBtn" onClick={onSend} disabled={loading}>
-                    <span className="sendIcon">{loading ? "⏳" : "➤"}</span>
+                <button className={styles.sendBtn} onClick={onSend} disabled={loading}>
+                    <span className={styles.sendIcon}>{loading ? "⏳" : "➤"}</span>
                 </button>
             </div>
         </div>
@@ -390,13 +390,13 @@ function IA() {
 function Bubble({ role, text, onSpeak }) {
     const isUser = role === "user";
     return (
-        <div className={`bubble ${isUser ? 'bubbleUser' : 'bubbleAI'}`}>
-            <div className={`bubbleText ${isUser ? 'userText' : 'aiText'}`}>
+        <div className={`${styles.bubble} ${isUser ? styles.bubbleUser : styles.bubbleAI}`}>
+            <div className={`${styles.bubbleText} ${isUser ? styles.userText : styles.aiText}`}>
                 {text}
             </div>
             {!isUser && (
-                <button onClick={onSpeak} className="speaker">
-                    <span className="volumeIcon">🔊</span>
+                <button onClick={onSpeak} className={styles.speaker}>
+                    <span className={styles.volumeIcon}>🔊</span>
                 </button>
             )}
         </div>
@@ -405,10 +405,10 @@ function Bubble({ role, text, onSpeak }) {
 
 function TypingIndicator() {
     return (
-        <div className="typingWrap">
-            <div className="dot"></div>
-            <div className="dot" style={{ opacity: 0.6 }}></div>
-            <div className="dot" style={{ opacity: 0.3 }}></div>
+        <div className={styles.typingWrap}>
+            <div className={styles.dot}></div>
+            <div className={styles.dot} style={{ opacity: 0.6 }}></div>
+            <div className={styles.dot} style={{ opacity: 0.3 }}></div>
         </div>
     );
 }
